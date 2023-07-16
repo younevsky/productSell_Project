@@ -1,0 +1,153 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap");
+
+*{
+  font-family: "Poppins", sans-serif;
+}
+body {
+  align-items: center;
+  background-color: #06b;
+  display: flex;
+  justify-content: center;
+  height: 100vh;
+}
+
+.form {
+  background-color: #EEE6F2;
+  box-shadow: 0px 0px 15px rgba(0,0,0,0.2);
+  border-radius: 10px;
+  box-sizing: border-box;
+  height: fit-content;
+  padding: 20px;
+  width: 40vw;
+}
+
+.title {
+  color: #222;
+  font-size: 36px;
+  font-weight: 600;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  text-align: center;
+  border-radius: 10px;
+}
+
+.input-container {
+  height: 50px;
+  position: relative;
+  width: 100%;
+  margin-top: 30px;
+}
+
+
+.input {
+  background-color: #CFD0D7;
+  border-radius: 12px;
+  border: 0;
+  box-sizing: border-box;
+  color: #222;
+  font-size: 18px;
+  height: 100%;
+  outline: 0;
+  padding: 4px 20px 0;
+  width: 100%;
+}
+
+.cut {
+  background-color: #EEE6F2;
+  border-radius: 10px;
+  height: 20px;
+  left: 20px;
+  position: absolute;
+  top: -20px;
+  transform: translateY(0);
+  transition: transform 200ms;
+  width: 76px;
+}
+
+.cut-short {
+  width: 50px;
+}
+
+.input:focus ~ .cut,
+.input:not(:placeholder-shown) ~ .cut {
+  transform: translateY(8px);
+}
+
+.placeholder {
+  color: #9A9AB3;
+  left: 20px;
+  line-height: 14px;
+  pointer-events: none;
+  position: absolute;
+  transform-origin: 0 50%;
+  transition: transform 200ms, color 200ms;
+  top: 20px;
+}
+
+.input:focus ~ .placeholder,
+.input:not(:placeholder-shown) ~ .placeholder {
+  transform: translateY(-30px) translateX(10px) scale(0.75);
+}
+
+.input:not(:placeholder-shown) ~ .placeholder {
+  color: #7F7F97;
+}
+
+.input:focus ~ .placeholder {
+  color: #06b;
+}
+
+.submit {
+  background-color: #08d;
+  box-shadow: 0px 0px 15px rgba(0,0,0,0.2);
+  border-radius: 10px;
+  border: 0;
+  box-sizing: border-box;
+  color: #eee;
+  cursor: pointer;
+  font-size: 18px;
+  height: 50px;
+  margin-top: 15px;
+
+  text-align: center;
+  width: 100%;
+}
+
+.submit:active {
+  background-color: #06b;
+}
+
+.account-switch{
+  text-align: center;
+}
+a {
+  text-decoration: none;
+  color: #06b;
+}
+.invalid-input {
+  border: 2px solid red;
+}
+
+.redWarn{
+  color: #f44336;
+  background-color: #ffebee;
+  border: 1px solid #f44336;
+  padding: 10px;
+  margin-top: 20px;
+  border-radius: 5px;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.greenWarn {
+  color: #38f42b;
+  background-color: #dff8d6;
+  border: 1px solid #52f436;
+  padding: 10px;
+  margin-top: 20px;
+  border-radius: 5px;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 500;
+}
