@@ -2,9 +2,8 @@
     require '../../vendor/autoload.php';
     session_start();
 
-
     $dbname = 'stage';
-    $host = 'aws.connect.psdb.cloud';
+    $host = '<contact me for this value>';
     $user = '<contact me for this value>';
     $password = '<contact me for this value>';
     $charset = 'utf8mb4';
@@ -22,9 +21,10 @@
     try {
         $dbh = new PDO($dsn, $user, $password, $options);
         $email = $_POST['email'];
-        $password = $_POST['password'];
+        $password = password_hash($_POST['password'], PASSWORD_BCRYPT);
         $name = $_POST['name'];
         $address = $_POST['address'];
+        $country = $_POST['country'];
         $city = $_POST['city'];
 
         $sql = "SELECT * FROM client WHERE email=:email";
@@ -36,13 +36,14 @@
         } else {
             $otp = rand(100000, 999999);
 
-            $sql = "INSERT INTO client (name, password, email, address, city, otp, isVerified) VALUES (:name, :password, :email, :address, :city, :otp, 0)";
+            $sql = "INSERT INTO client (name, password, email, address, country, city, otp, isVerified) VALUES (:name, :password, :email, :address, :country, :city, :otp, 0)";
             $stmt = $dbh->prepare($sql);
-            $stmt->execute([':name' => $name, ':password' => $password, ':email' => $email, ':address' => $address, ':city' => $city, ':otp' => $otp]);
+            $stmt->execute([':name' => $name, ':password' => $password, ':email' => $email, ':address' => $address, ':country' => $country, ':city' => $city, ':otp' => $otp]);
             $_SESSION['SESSION_EMAIL'] = $email;
             $_SESSION['SESSION_NAME'] = $name;
             $_SESSION['SESSION_CITY'] = $city;
             $_SESSION['SESSION_ADDRESS'] = $address;
+            $_SESSION['SESSION_COUNTRY'] = $country;
             $mail = new PHPMailer\PHPMailer\PHPMailer();
 
                 $mail->isSMTP();
