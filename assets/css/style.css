@@ -151,3 +151,14 @@ a {
   font-size: 18px;
   font-weight: 500;
 }
+
+
+.select-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.ic2 {
+  width: 48%;
+}
+
