@@ -1,7 +1,7 @@
 <?php
     session_start();
     $dbname = 'stage';
-    $host = 'aws.connect.psdb.cloud';
+    $host = '<contact me for this value>';
     $user = '<contact me for this value>';
     $password = '<contact me for this value>';
     $charset = 'utf8mb4';
@@ -18,20 +18,24 @@
         ];
         $dbh = new PDO($dsn, $user, $password, $options);
 
-        $email = $dbh->quote($_POST['email']);
-        $password = $dbh->quote($_POST['password']);
+        $email = $_POST['email'];
+        $inputPassword = $_POST['password'];
 
-        $sql = "SELECT * FROM client WHERE email={$email} AND password={$password}";
-        $result = $dbh->query($sql);
+        $sql = "SELECT * FROM client WHERE email=:email";
+        $stmt = $dbh->prepare($sql);
+        $stmt->execute([':email' => $email]);
 
-        if ($result->rowCount() === 1) {
-            $user = $result->fetch(PDO::FETCH_ASSOC);
-            $_SESSION['SESSION_EMAIL'] = $user['email'];
-            $_SESSION['SESSION_NAME'] = $user['name'];
-            $_SESSION['SESSION_CITY'] = $user['city'];
-            $_SESSION['SESSION_ADDRESS'] = $user['address'];
-            $_SESSION['SESSION_VERIFY'] = $user['isVerified'];
-
+        if ($stmt->rowCount() === 1) {
+            $user = $stmt->fetch(PDO::FETCH_ASSOC);
+            if (password_verify($inputPassword, $user['password'])) {
+                $_SESSION['SESSION_EMAIL'] = $user['email'];
+                $_SESSION['SESSION_NAME'] = $user['name'];
+                $_SESSION['SESSION_CITY'] = $user['city'];
+                $_SESSION['SESSION_ADDRESS'] = $user['address'];
+                $_SESSION['SESSION_VERIFY'] = $user['isVerified'];
+            } else {
+                $response = array('status' => 'error', 'message' => 'Email or password is incorrect');
+            }
         } else {
             $response = array('status' => 'error', 'message' => 'Email or password is incorrect');
         }
@@ -41,5 +45,3 @@
 
     echo json_encode($response);
 ?>
-
-
